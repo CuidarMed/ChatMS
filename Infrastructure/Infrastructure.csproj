@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Pesistence\**" />
+    <EmbeddedResource Remove="Pesistence\**" />
+    <None Remove="Pesistence\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.3">
       <PrivateAssets>all</PrivateAssets>
@@ -26,9 +32,7 @@
 
   <ItemGroup>
     <Folder Include="Command\" />
-    <Folder Include="Persistence\Configuration\" />
     <Folder Include="Queries\" />
-    <Folder Include="Pesistence\" />
   </ItemGroup>
 
 </Project>
