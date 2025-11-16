@@ -26,6 +26,7 @@
 
   <ItemGroup>
     <Folder Include="Command\" />
+    <Folder Include="Persistence\Configuration\" />
     <Folder Include="Queries\" />
     <Folder Include="Pesistence\" />
   </ItemGroup>
