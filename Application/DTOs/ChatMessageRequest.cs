@@ -14,7 +14,7 @@ namespace Application.DTOs
         int SenderId,
         string SenderName, // Analizar si ponemos el nombre del usuario que envia el mensaje
         string Message,
-        DateTime SendAt,
+        DateTime SentAt,
         bool IsRead // Ver si emplementamos este apartado
     );
 }

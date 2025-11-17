@@ -1,4 +1,8 @@
+using Application.Interfaces;
+using Application.Services;
+using Infrastructure.Command;
 using Infrastructure.Persistence.Configuration;
+using Infrastructure.Queries;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,9 +14,29 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+//dbcontext
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<AppDbContext>(opt => opt.UseSqlServer(connectionString));
+
+// Memory Cache
+builder.Services.AddMemoryCache();
+
+// Cache Service
+builder.Services.AddSingleton<IUserCacheService, UserCacheService>();
+
+// Commands
+builder.Services.AddScoped<ICreateChatRoomCommand, CreateChatRoomCommand>();
+builder.Services.AddScoped<ISendMessageCommand, SendMessageCommand>();
+builder.Services.AddScoped<IMarkMessagesAsReadCommand, MarkMessagesAsReadCommand>();
+
+// Queries
+builder.Services.AddScoped<IGetChatRoomByIdQuery, GetChatRoomByIdQuery>();
+builder.Services.AddScoped<IGetUserChatRoomsQuery, GetUserChatRoomsQuery>();
+builder.Services.AddScoped<IGetChatMessagesQuery, GetChatMessagesQuery>();
+
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -20,10 +44,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-//custom
-//dbcontext
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<AppDbContext>(opt => opt.UseSqlServer(connectionString));
 
 app.UseHttpsRedirection();
 

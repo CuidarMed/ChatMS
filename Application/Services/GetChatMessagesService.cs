@@ -10,15 +10,15 @@ namespace Application.Services
 {
     public class GetChatMessagesService : IGetChatMessagesService
     {
-        private readonly IGetChatMessagesQuery getChatMessagesQuery;
+        private readonly IGetChatMessagesQuery _getChatMessagesQuery;
 
         public GetChatMessagesService(IGetChatMessagesQuery getChatMessagesQuery)
         {
-            this.getChatMessagesQuery = getChatMessagesQuery;
+            _getChatMessagesQuery = getChatMessagesQuery;
         }
-        public async Task<List<ChatMessageRequest>> GetChatMessagesAsync(int chatRoomId, int userId, int skip = 0, int take = 50)
+        public async Task<List<ChatMessageRequest>> GetChatMessagesAsync(GetMessagesRequestDto request)
         {
-            return await getChatMessagesQuery.ExecuteAsync(chatRoomId, userId, skip, take);
+            return await _getChatMessagesQuery.ExecuteAsync(request);
         }
     }
 }

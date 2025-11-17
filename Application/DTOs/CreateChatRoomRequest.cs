@@ -9,6 +9,8 @@ namespace Application.DTOs
     public record CreateChatRoomRequest
     (
         int PatientId,
-        int DoctorId
+        int DoctorId,
+        UserDto DoctorInfo, // Info del doctor desde el front
+        UserDto PatientInfo // Info del paciente desde el front
     );
 }

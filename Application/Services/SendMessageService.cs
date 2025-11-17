@@ -10,21 +10,26 @@ namespace Application.Services
 {
     public class SendMessageService : ISendMessageService
     {
-        private readonly ISendMessageCommand sendMessageCommand;
+        private readonly ISendMessageCommand _sendMessageCommand;
+        private readonly IUserCacheService _userCache;
 
-        public SendMessageService(ISendMessageCommand sendMessageCommand)
+        public SendMessageService(ISendMessageCommand sendMessageCommand, IUserCacheService userCache)
         {
-            this.sendMessageCommand = sendMessageCommand;
+            _sendMessageCommand = sendMessageCommand;
+            _userCache = userCache;
         }
-        public async Task<ChatMessageRequest> SendMessageAsync(int chatRoomId, int senderId, string message)
+        public async Task<ChatMessageRequest> SendMessageAsync(SendMessageRequest dto)
         {
-            var chatMessage = await sendMessageCommand.ExecuteAsync(chatRoomId, senderId, message);
+            var chatMessage = await _sendMessageCommand.ExecuteAsync(dto);
+
+            // Obtener info del sender desde caché
+            var sender = await _userCache.GetUserAsync(chatMessage.SenderId);
 
             return new ChatMessageRequest(
                 chatMessage.Id,
                 chatMessage.ChatRoomId,
                 chatMessage.SenderId,
-                chatMessage.SenderName,
+                sender?.Name ?? "Usuario",
                 chatMessage.Message,
                 chatMessage.SentAt,
                 chatMessage.IsRead

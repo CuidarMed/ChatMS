@@ -1,4 +1,5 @@
 ﻿using Application.DTOs;
+using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace Application.Interfaces
 {
-    public interface ISendMessageService 
+    public interface ICreateChatRoomCommand
     {
-        Task<ChatMessageRequest> SendMessageAsync(SendMessageRequest dto);
+        Task<ChatRoom> ExecuteAsync(CreateChatRoomRequest dto);
     }
 }

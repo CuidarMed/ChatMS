@@ -12,13 +12,13 @@ namespace Domain.Entities
         [Key]
         public int Id { get; set; }
         [Required]
-        public int PatientId { get; set; }
+        public int DoctorId { get; set; }
         [Required]
-        public int DoctorID { get; set; }
+        public int PatientId { get; set; }
         [Required]
         public DateTime CreatedAt { get; set; }
         public bool IsActive { get; set; }
 
-        public ICollection<ChatMessage> Messages { get; set; } = new List<ChatMessage>();
+        public virtual ICollection<ChatMessage> Messages { get; set; }
     }
 }

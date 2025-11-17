@@ -13,7 +13,7 @@ namespace Application.Services
         private readonly ICreateChatRoomCommand createChatRoomCommand;
         private readonly IGetChatRoomByIdQuery getChatRoomByIdQuery;
 
-        public CreateRoomService(ICreateChatRoomCommand createChatRoomCommand, IGetChatRoomByIdQuery getChatRoomByIdQuery,)
+        public CreateRoomService(ICreateChatRoomCommand createChatRoomCommand, IGetChatRoomByIdQuery getChatRoomByIdQuery)
         {
             this.createChatRoomCommand = createChatRoomCommand;
             this.getChatRoomByIdQuery = getChatRoomByIdQuery;

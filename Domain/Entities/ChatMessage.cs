@@ -10,16 +10,16 @@ namespace Domain.Entities
     public class ChatMessage
     {
         [Key]
-        public int id {  get; set; }
+        public int Id {  get; set; }
         [Required]
         public int ChatRoomId {  get; set; }
         [Required]
         public int SenderId { get; set; }
         public string? Message { get; set; }
         [Required]
-        public DateTime SendAt { get; set; }
+        public DateTime SentAt { get; set; }
         public bool IsRead { get; set; } // Ver si implementamos este apartado
 
-        public ChatRoom ChatRoom { get; set; }
+        public virtual ChatRoom ChatRoom { get; set; }
     }
 }

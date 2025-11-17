@@ -9,7 +9,9 @@ namespace Application.DTOs
 {
     public record SendMessageRequest
     (
-        int ChatRoomID,
-        string Message
+        int ChatRoomId,
+        string Message,
+        int SenderId,
+        UserDto SenderInfo // Info del usuario desde el front
     );
 }

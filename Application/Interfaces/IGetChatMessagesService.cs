@@ -9,6 +9,6 @@ namespace Application.Interfaces
 {
     public interface IGetChatMessagesService
     {
-        Task<List<ChatMessageRequest>> GetChatMessagesAsync(int chatRoomId, int userId, int skip = 0, int take = 50)
+        Task<List<ChatMessageRequest>> GetChatMessagesAsync(GetMessagesRequestDto request);
     }
 }

@@ -9,10 +9,10 @@ namespace Application.DTOs
     public record ChatRoomRequest
     (
         int Id,
-        int PatientId,
-        string PatientName,
         int DoctorId,
         string DoctorName,
+        int PatientId,
+        string PatientName,
         DateTime CreatedAt,
         string LastMessage,
         DateTime? LastMessageTime,

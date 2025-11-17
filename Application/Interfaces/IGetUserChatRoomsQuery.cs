@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Application.Interfaces
 {
-    public interface ISendMessageService 
+    public interface IGetUserChatRoomsQuery
     {
-        Task<ChatMessageRequest> SendMessageAsync(SendMessageRequest dto);
+        Task<List<ChatRoomRequest>> ExecuteAsync(int userId);
     }
 }
