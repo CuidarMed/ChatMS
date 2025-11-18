@@ -57,5 +57,24 @@ namespace ChatMS.Controllers
                 return BadRequest(new { message = ex.Message });
             }
         }
+
+        [HttpGet("rooms/{chatRoomId}/user/{userId}")]
+        [ProducesResponseType(typeof(ChatRoomRequest), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetChatRoom(int chatRoomId, int userId)
+        {
+            try
+            {
+                var chatRoom = await getChatRoomService.GetChatRoomAsync(chatRoomId, userId);
+
+                if (chatRoom == null)
+                    return NotFound(new { message = "Sala de chat no encontrada" });
+
+                return Ok(chatRoom);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
     }
 }
