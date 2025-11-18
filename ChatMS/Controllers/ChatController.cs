@@ -76,5 +76,27 @@ namespace ChatMS.Controllers
                 return BadRequest(new { message = ex.Message });
             }
         }
+
+
+        [HttpPost("rooms/{chatRoomId}/messages")]
+        [ProducesResponseType(typeof(ChatMessageRequest), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetChatMessages(int chatRoomId, [FromBody] GetMessagesRequestDto request)
+        {
+            try
+            {
+                request.ChatRoomId = chatRoomId;
+                var messages = await getChatMessagesService.GetChatMessagesAsync(request);
+                return Ok(messages);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return Forbid(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
     }
 }
