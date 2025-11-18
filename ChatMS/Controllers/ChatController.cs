@@ -42,5 +42,20 @@ namespace ChatMS.Controllers
                 return BadRequest(new { message = ex.Message });
             }
         }
+
+        [HttpGet("rooms/user/{id}")]
+        [ProducesResponseType(typeof(IEnumerable<ChatRoomRequest>), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetUserChatRooms(int id)
+        {
+            try
+            {
+                var chatRooms = await getUserChatRoomsService.GetUserChatRoomsAsync(id);
+                return Ok(chatRooms);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
     }
 }
