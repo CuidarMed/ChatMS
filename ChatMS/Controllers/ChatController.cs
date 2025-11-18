@@ -98,5 +98,20 @@ namespace ChatMS.Controllers
             }
         }
 
+        [HttpPost("rooms/{chatRoomId}/read")]
+        [ProducesResponseType(typeof(object), StatusCodes.Status200OK)]
+        public async Task<IActionResult> MarkMessagesAsRead(int chatRoomId, [FromBody] int UserId)
+        {
+            try
+            {
+                await markMessagesAsReadService.MarkMessagesAsReadAsync(chatRoomId, UserId);
+                return Ok(new { message = "Mensajes marcados como leídos" });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
     }
 }
