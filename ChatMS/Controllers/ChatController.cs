@@ -113,5 +113,11 @@ namespace ChatMS.Controllers
             }
         }
 
+        [HttpGet("health")]
+        public IActionResult HealthCheck()
+        {
+            return Ok(new { status = "healthy", service = "ChatMS", timestamp = DateTime.UtcNow });
+        }
+
     }
 }
