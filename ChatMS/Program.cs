@@ -1,5 +1,6 @@
 using Application.Interfaces;
 using Application.Services;
+using ChatMS.Hubs;
 using Infrastructure.Command;
 using Infrastructure.Persistence.Configuration;
 using Infrastructure.Queries;
@@ -8,8 +9,8 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
@@ -41,6 +42,11 @@ builder.Services.AddScoped<IMarkMessagesAsReadCommand, MarkMessagesAsReadCommand
 builder.Services.AddScoped<IGetChatRoomByIdQuery, GetChatRoomByIdQuery>();
 builder.Services.AddScoped<IGetUserChatRoomsQuery, GetUserChatRoomsQuery>();
 builder.Services.AddScoped<IGetChatMessagesQuery, GetChatMessagesQuery>();
+
+// Services
+builder.Services.AddScoped<IGetChatRoomService, GetChatRoomService>();
+builder.Services.AddScoped<ISendMessageService, SendMessageService>();
+builder.Services.AddScoped<IMarkMessagesAsReadService, MarkMessagesAsReadService>();
 
 // SignalR
 builder.Services.AddSignalR(options =>
@@ -84,7 +90,9 @@ app.UseCors("ChatMSPolicy");
 
 app.UseRouting();
 
-//app.MapHub<ChatHub>("/chatHub");
+app.MapControllers();
+
+app.MapHub<ChatHub>("/chatHub");
 
 app.MapGet("/", () => Results.Ok(new
 {
@@ -102,7 +110,5 @@ app.MapGet("/", () => Results.Ok(new
 app.UseHttpsRedirection(); //posible para sacar
 
 app.UseAuthorization(); // posible para sacar
-
-app.MapControllers();
 
 app.Run();
