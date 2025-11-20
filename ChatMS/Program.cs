@@ -58,11 +58,13 @@ builder.Services.AddSignalR(options =>
 // CORS
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("ChatMSPolicy", policy =>
+    options.AddPolicy("AllowChatClient", policy =>
     {
         policy.WithOrigins(
-            builder.Configuration.GetSection("AllowedOrigins").Get<string[]>() ??
-            new[] { "http://localhost:3000", "http://localhost:5173" })
+                "http://127.0.0.1:5500",
+                "http://localhost:5500",
+                "http://127.0.0.1:5501",  // Por si Live Server usa otro puerto
+                "http://localhost:5501")
             .AllowAnyHeader()
             .AllowAnyMethod()
             .AllowCredentials();
@@ -86,9 +88,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseCors("ChatMSPolicy");
+app.UseCors("AllowChatClient");
 
 app.UseRouting();
+
+app.UseAuthorization();
 
 app.MapControllers();
 
@@ -106,9 +110,5 @@ app.MapGet("/", () => Results.Ok(new
         health = "/api/chat/health"
     }
 }));
-
-app.UseHttpsRedirection(); //posible para sacar
-
-app.UseAuthorization(); // posible para sacar
 
 app.Run();

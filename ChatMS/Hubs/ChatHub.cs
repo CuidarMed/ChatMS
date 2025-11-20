@@ -1,6 +1,7 @@
 ﻿using Application.DTOs;
 using Application.Interfaces;
 using Microsoft.AspNetCore.SignalR;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 
 namespace ChatMS.Hubs
@@ -53,6 +54,7 @@ namespace ChatMS.Hubs
 
         public async Task SendMessage(SendMessageRequest dto)
         {
+            _logger.LogInformation("HUB recibió mensaje: {msg}", dto.Message);
             try
             {
                 if (string.IsNullOrWhiteSpace(dto.Message))
@@ -93,26 +95,32 @@ namespace ChatMS.Hubs
             }
         }
 
-        public async Task UserTyping(int chatRoomId, string userId, string userName)
+        public async Task UserTyping(int chatRoomId, int userId, string userName)
         {
             await Clients.OthersInGroup($"chat_{chatRoomId}")
                 .SendAsync("UserTyping", new { userId, userName });
         }
 
-        public async Task UserStoppedTyping(int chatRoomId, string userId)
+        public async Task UserStoppedTyping(int chatRoomId, int userId)
         {
             await Clients.OthersInGroup($"chat_{chatRoomId}")
                 .SendAsync("UserStoppedTyping", userId);
         }
 
-        public async Task UserOnline(string userId)
+        public async Task UserOnline(int userId)
         {
             await Clients.All.SendAsync("UserOnline", userId);
         }
 
-        public async Task UserOffline(string userId)
+        public async Task UserOffline(int userId)
         {
             await Clients.All.SendAsync("UserOffline", userId);
+        }
+
+        public override Task OnConnectedAsync()
+        {
+            _logger.LogWarning("SE CONECTÓ: " + Context.ConnectionId);
+            return base.OnConnectedAsync();
         }
     }
 }
