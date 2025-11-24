@@ -1,0 +1,17 @@
+**/bin/
+**/obj/
+**/.vs/
+**/node_modules/
+**/npm-debug.log
+**/*.user
+**/*.suo
+**/*.vscode
+**/*.log
+**/.git
+**/.gitignore
+**/.idea
+**/coverage/
+**/TestResults/
+Dockerfile.*
+docker-compose.*.yml
+.env
