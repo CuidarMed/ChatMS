@@ -40,6 +40,8 @@ namespace Infrastructure.Command
             {
                 ChatRoomId = dto.ChatRoomId,
                 SenderId = dto.SenderId,
+                SenderRole = dto.SenderInfo?.Role ?? "Unknown",  // ← AGREGAR
+                SenderName = dto.SenderInfo?.Name ?? "Usuario",  // ← AGREGAR
                 Message = dto.Message,
                 SentAt = DateTime.UtcNow,
                 IsRead = false
