@@ -12,6 +12,7 @@ namespace Application.DTOs
         int Id,
         int ChatRoomId,
         int SenderId,
+        string SenderRole,
         string SenderName, // Analizar si ponemos el nombre del usuario que envia el mensaje
         string Message,
         DateTime SentAt,

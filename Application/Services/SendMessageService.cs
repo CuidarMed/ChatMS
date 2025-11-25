@@ -29,6 +29,7 @@ namespace Application.Services
                 chatMessage.Id,
                 chatMessage.ChatRoomId,
                 chatMessage.SenderId,
+                chatMessage.SenderRole,
                 sender?.Name ?? "Usuario",
                 chatMessage.Message,
                 chatMessage.SentAt,

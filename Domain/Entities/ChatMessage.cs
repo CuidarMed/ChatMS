@@ -15,6 +15,10 @@ namespace Domain.Entities
         public int ChatRoomId {  get; set; }
         [Required]
         public int SenderId { get; set; }
+        [Required]
+        public string SenderRole { get; set; }  // ← AGREGAR: "Doctor" o "Patient"
+
+        public string? SenderName { get; set; }
         public string? Message { get; set; }
         [Required]
         public DateTime SentAt { get; set; }

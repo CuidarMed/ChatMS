@@ -47,6 +47,9 @@ builder.Services.AddScoped<IGetChatMessagesQuery, GetChatMessagesQuery>();
 builder.Services.AddScoped<IGetChatRoomService, GetChatRoomService>();
 builder.Services.AddScoped<ISendMessageService, SendMessageService>();
 builder.Services.AddScoped<IMarkMessagesAsReadService, MarkMessagesAsReadService>();
+builder.Services.AddScoped<ICreateRoomService, CreateRoomService>();
+builder.Services.AddScoped<IGetUserChatRoomsService, GetUserChatRoomsService>();
+builder.Services.AddScoped<IGetChatMessagesService, GetChatMessagesService>();
 
 // SignalR
 builder.Services.AddSignalR(options =>

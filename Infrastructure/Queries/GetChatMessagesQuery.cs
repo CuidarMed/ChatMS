@@ -48,14 +48,14 @@ namespace Infrastructure.Queries
 
                 return new ChatMessageRequest
                 (
-                    m.Id,
-                    m.ChatRoomId,
-                    m.SenderId,
-                    sender?.Name ?? "Usuario",
-                    //SenderImageUrl = sender?.ProfileImageUrl,
-                    m.Message,
-                    m.SentAt,
-                    m.IsRead
+                    m.Id,                      
+                    m.ChatRoomId,              
+                    m.SenderId,                
+                    m.SenderRole,              
+                    sender?.Name ?? "Usuario", 
+                    m.Message,                 
+                    m.SentAt,                 
+                    m.IsRead                   
                 );
             })
             .OrderBy(m => m.SentAt)

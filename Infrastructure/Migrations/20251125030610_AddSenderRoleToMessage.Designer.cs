@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251120014248_IntialMigration")]
-    partial class IntialMigration
+    [Migration("20251125030610_AddSenderRoleToMessage")]
+    partial class AddSenderRoleToMessage
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -49,6 +49,13 @@ namespace Infrastructure.Migrations
                     b.Property<int>("SenderId")
                         .HasMaxLength(50)
                         .HasColumnType("int");
+
+                    b.Property<string>("SenderName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SenderRole")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("SentAt")
                         .HasColumnType("datetime2");
