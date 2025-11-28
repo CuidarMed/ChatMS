@@ -13,9 +13,11 @@ namespace Application.DTOs
         string PatientName,
         int DoctorId,
         string DoctorName,
+        int AppointmentId, // ID de la consulta asociada (REQUERIDO - no nullable)
         DateTime CreatedAt,
         string LastMessage,
         DateTime? LastMessageTime,
-        int UnreadCount
+        int UnreadCount,
+        int? LastSenderId = null // ID del usuario que envió el último mensaje (userId de autenticación)
     );
 }

@@ -1,0 +1,18 @@
+services:
+  chatms_api:
+    build:
+      context: .
+      dockerfile: ChatMS/Dockerfile
+    container_name: chatms_api
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+      ConnectionStrings__DefaultConnection: 'Server=db33326.public.databaseasp.net,1433;Database=db33326;User Id=db33326;Password=6Aw@Rk-92Ko=;Encrypt=True;TrustServerCertificate=True;MultipleActiveResultSets=True;'
+    ports:
+      - "5046:8080"
+    networks:
+      - cuidarmed_new_net
+
+networks:
+  cuidarmed_new_net:
+    external: true
+

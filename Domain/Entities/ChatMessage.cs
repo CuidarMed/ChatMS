@@ -20,6 +20,9 @@ namespace Domain.Entities
         public DateTime SendAt { get; set; }
         public bool IsRead { get; set; } // Ver si implementamos este apartado
 
-        public ChatRoom ChatRoom { get; set; }
+        public ChatRoom? ChatRoom { get; set; }
+        
+        // Navigation property
+        public User? Sender { get; set; }
     }
 }

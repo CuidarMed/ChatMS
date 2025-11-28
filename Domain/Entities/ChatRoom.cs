@@ -16,9 +16,15 @@ namespace Domain.Entities
         [Required]
         public int DoctorID { get; set; }
         [Required]
+        public int AppointmentId { get; set; } // ID de la consulta asociada (REQUERIDO - no nullable)
+        [Required]
         public DateTime CreatedAt { get; set; }
         public bool IsActive { get; set; }
 
         public ICollection<ChatMessage> Messages { get; set; } = new List<ChatMessage>();
+        
+        // Navigation properties
+        public User? Doctor { get; set; }
+        public User? Patient { get; set; }
     }
 }

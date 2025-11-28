@@ -20,13 +20,17 @@ namespace Application.Services
         {
             var chatMessage = await sendMessageCommand.ExecuteAsync(chatRoomId, senderId, message);
 
+            var sendAtUtc = chatMessage.SendAt.Kind == DateTimeKind.Unspecified
+                ? DateTime.SpecifyKind(chatMessage.SendAt, DateTimeKind.Utc)
+                : chatMessage.SendAt.ToUniversalTime();
+
             return new ChatMessageRequest(
-                chatMessage.Id,
+                chatMessage.id,
                 chatMessage.ChatRoomId,
                 chatMessage.SenderId,
-                chatMessage.SenderName,
-                chatMessage.Message,
-                chatMessage.SentAt,
+                "Usuario", // TODO: Obtener nombre del sender
+                chatMessage.Message ?? "",
+                sendAtUtc,
                 chatMessage.IsRead
             );
         }
