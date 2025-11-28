@@ -8,6 +8,6 @@ namespace Application.Interfaces
 {
     public interface IMarkMessagesAsReadService
     {
-        Task MarkMessagesAsReadAsync(int chatRoomId, int userId);
+        Task MarkMessagesAsReadAsync(int chatRoomId, int userId, string userRole);
     }
 }

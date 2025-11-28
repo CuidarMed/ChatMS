@@ -82,11 +82,11 @@ namespace ChatMS.Hubs
             }
         }
 
-        public async Task MarkAsRead(int chatRoomId, int userId)
+        public async Task MarkAsRead(int chatRoomId, int userId,string userRole)
         {
             try
             {
-                await _markMessagesAsReadService.MarkMessagesAsReadAsync(chatRoomId, userId);
+                await _markMessagesAsReadService.MarkMessagesAsReadAsync(chatRoomId, userId,userRole);
                 await Clients.Group($"chat_{chatRoomId}").SendAsync("MessagesRead", chatRoomId, userId);
             }
             catch (Exception ex)

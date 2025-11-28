@@ -15,9 +15,9 @@ namespace Application.Services
         {
             this.markMessagesAsReadCommand = markMessagesAsReadCommand;
         }
-        public async Task MarkMessagesAsReadAsync(int chatRoomId, int userId)
+        public async Task MarkMessagesAsReadAsync(int chatRoomId, int userId, string userRole)
         {
-            await markMessagesAsReadCommand.ExecuteAsync(chatRoomId, userId);
+            await markMessagesAsReadCommand.ExecuteAsync(chatRoomId, userId, userRole);
         }
     }
 }

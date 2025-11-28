@@ -13,35 +13,17 @@ namespace Infrastructure.Command
             _context = context;
         }
 
-        public async Task ExecuteAsync(int chatRoomId, int userId)
+        public async Task ExecuteAsync(int chatRoomId, int userId, string userRole)
         {
-            // Primero determinar el rol del usuario que está leyendo
-            var chatRoom = await _context.ChatRooms
-                .FirstOrDefaultAsync(r => r.Id == chatRoomId);
-
-            if (chatRoom == null) return;
-
-            // Determinar qué rol tiene el usuario que lee
-            string readerRole;
-            if (chatRoom.DoctorId == userId)
-            {
-                readerRole = "Doctor";
-            }
-            else if (chatRoom.PatientId == userId)
-            {
-                readerRole = "Patient";
-            }
-            else
-            {
-                return; // Usuario no pertenece a esta sala
-            }
-
-            // Marcar como leídos los mensajes del OTRO rol (no los propios)
+            // Marcar como leídos los mensajes del OTRO rol
             var messages = await _context.ChatMessages
                 .Where(m => m.ChatRoomId == chatRoomId &&
-                           m.SenderRole != readerRole &&  // Mensajes del otro participante
+                           m.SenderRole != userRole &&  // ← CLAVE: mensajes del OTRO participante
                            !m.IsRead)
                 .ToListAsync();
+
+            Console.WriteLine($"📝 Mensajes a marcar como leídos: {messages.Count}");
+            Console.WriteLine($"📝 userRole recibido: {userRole}");
 
             foreach (var message in messages)
             {
